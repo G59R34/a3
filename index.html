@@ -305,6 +305,21 @@
                                     <div class="road-lines"></div>
                                     <div class="road-horizon"></div>
                                 </div>
+                                <div class="sim-hud">
+                                    <div class="explosion-overlay" id="explosionOverlay" aria-hidden="true">
+                                        <div class="explosion-flash"></div>
+                                        <div class="explosion-ring"></div>
+                                        <div class="explosion-smoke"></div>
+                                        <div class="explosion-particles" id="explosionParticles"></div>
+                                    </div>
+
+                                    <div class="road-objects" id="roadObjects" aria-hidden="true"></div>
+
+                                    <div class="car" id="car" aria-hidden="true">
+                                        <div class="car-body"></div>
+                                        <div class="car-glow"></div>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="controls-row">
@@ -332,6 +347,24 @@
                                         </div>
                                         <div class="radio-station-list" id="radioStationList"></div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="steering-panel">
+                                <div class="steering-header">
+                                    <div class="steering-title">Steering</div>
+                                    <div class="steering-hint">A / D or ← / → (hold)</div>
+                                </div>
+                                <div class="steering-controls">
+                                    <button class="steer-btn" onmousedown="setSteering(-1)" onmouseup="setSteering(0)" ontouchstart="setSteering(-1)" ontouchend="setSteering(0)" aria-label="Steer left">←</button>
+                                    <input class="steering-slider" id="steeringSlider" type="range" min="-100" max="100" value="0" oninput="setSteering(this.value/100)" aria-label="Steering slider">
+                                    <button class="steer-btn" onmousedown="setSteering(1)" onmouseup="setSteering(0)" ontouchstart="setSteering(1)" ontouchend="setSteering(0)" aria-label="Steer right">→</button>
+                                </div>
+                                <div class="steering-status">
+                                    <span class="steering-label">Position:</span>
+                                    <span class="steering-value" id="lanePos">0</span>
+                                    <span class="steering-unit">%</span>
+                                    <span class="crash-tag" id="crashTag" hidden>CRASHED</span>
                                 </div>
                             </div>
                             <div class="simulator-stats">
