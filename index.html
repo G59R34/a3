@@ -298,16 +298,41 @@
                             </div>
                         </div>
                         <div class="simulator-controls">
-                            <div class="road-visual">
-                                <div class="road-lines"></div>
-                                <div class="road-lines"></div>
-                                <div class="road-lines"></div>
+                            <div class="road-visual-3d">
+                                <div class="road-3d">
+                                    <div class="road-lines"></div>
+                                    <div class="road-lines"></div>
+                                    <div class="road-lines"></div>
+                                    <div class="road-horizon"></div>
+                                </div>
                             </div>
-                            <div class="gas-pedal-container">
-                                <button class="gas-pedal" id="gasPedal" onmousedown="startAcceleration()" onmouseup="stopAcceleration()" ontouchstart="startAcceleration()" ontouchend="stopAcceleration()">
-                                    <span class="pedal-text">GAS</span>
-                                    <span class="pedal-subtext">Press & Hold</span>
-                                </button>
+                            
+                            <div class="controls-row">
+                                <div class="gas-pedal-container">
+                                    <button class="gas-pedal" id="gasPedal" onmousedown="startAcceleration()" onmouseup="stopAcceleration()" ontouchstart="startAcceleration()" ontouchend="stopAcceleration()">
+                                        <span class="pedal-text">GAS</span>
+                                        <span class="pedal-subtext">Press & Hold</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="radio-container">
+                                    <div class="radio-panel">
+                                        <div class="radio-display">
+                                            <div class="radio-frequency" id="radioFrequency">88.5</div>
+                                            <div class="radio-station" id="radioStation">FM</div>
+                                        </div>
+                                        <div class="radio-controls">
+                                            <button class="radio-btn radio-prev" onclick="changeRadioStation(-1)" title="Previous Station">◀</button>
+                                            <button class="radio-btn radio-power" id="radioPower" onclick="toggleRadio()" title="Power">●</button>
+                                            <button class="radio-btn radio-next" onclick="changeRadioStation(1)" title="Next Station">▶</button>
+                                        </div>
+                                        <div class="radio-volume">
+                                            <label>Volume</label>
+                                            <input type="range" id="radioVolume" min="0" max="100" value="50" oninput="updateRadioVolume(this.value)">
+                                        </div>
+                                        <div class="radio-station-list" id="radioStationList"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="simulator-stats">
                                 <div class="stat-item">

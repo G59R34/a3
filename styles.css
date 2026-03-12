@@ -297,7 +297,29 @@ main {
     padding: 3rem;
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(0, 212, 255, 0.1);
+        0 0 20px rgba(0, 212, 255, 0.1),
+        inset 0 0 30px rgba(0, 212, 255, 0.05);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.simulator-dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+    border-radius: 20px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.simulator-dashboard:hover::before {
+    opacity: 1;
 }
 
 .gauge-container {
@@ -316,6 +338,13 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.3s ease;
+}
+
+.gauge:hover {
+    transform: translateY(-10px) rotateX(5deg);
 }
 
 .gauge-label {
@@ -380,6 +409,90 @@ main {
     gap: 2rem;
 }
 
+.controls-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* 3D Road Visual */
+.road-visual-3d {
+    perspective: 1000px;
+    perspective-origin: center center;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
+    background: linear-gradient(180deg, #87CEEB 0%, #1a1a2e 50%, #0a0a0f 100%);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    position: relative;
+}
+
+.road-3d {
+    transform-style: preserve-3d;
+    transform: rotateX(60deg) translateZ(-200px);
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: transform 0.1s ease-out;
+}
+
+.road-horizon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(135, 206, 235, 0.8) 0%, rgba(26, 26, 46, 0.5) 100%);
+    z-index: 1;
+}
+
+.road-visual-3d .road-lines {
+    position: absolute;
+    width: 6px;
+    height: 100px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #ffd700 0px,
+        #ffd700 30px,
+        transparent 30px,
+        transparent 60px
+    );
+    animation: roadMove3D 0.5s linear infinite;
+    opacity: 0.8;
+    transform-style: preserve-3d;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.road-visual-3d .road-lines:nth-child(1) {
+    left: 30%;
+    transform: translateZ(0);
+    animation-duration: 0.4s;
+}
+
+.road-visual-3d .road-lines:nth-child(2) {
+    left: 50%;
+    transform: translateZ(50px);
+    animation-duration: 0.35s;
+}
+
+.road-visual-3d .road-lines:nth-child(3) {
+    left: 70%;
+    transform: translateZ(100px);
+    animation-duration: 0.45s;
+}
+
+@keyframes roadMove3D {
+    from { 
+        transform: translateY(-100px) translateZ(0) scale(1);
+        opacity: 0.8;
+    }
+    to { 
+        transform: translateY(400px) translateZ(300px) scale(2);
+        opacity: 0.2;
+    }
+}
+
 .road-visual {
     position: relative;
     height: 150px;
@@ -429,6 +542,204 @@ main {
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    perspective: 1000px;
+}
+
+/* Radio Styles */
+.radio-container {
+    perspective: 1000px;
+}
+
+.radio-panel {
+    background: linear-gradient(135deg, rgba(15, 15, 25, 0.95) 0%, rgba(25, 25, 35, 0.95) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 212, 255, 0.4);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(0, 212, 255, 0.2),
+        inset 0 0 20px rgba(0, 212, 255, 0.1);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.radio-panel:hover {
+    transform: translateY(-5px) rotateX(2deg);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 212, 255, 0.3),
+        inset 0 0 30px rgba(0, 212, 255, 0.15);
+}
+
+.radio-display {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(0, 212, 255, 0.5);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: 
+        inset 0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.radio-frequency {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--glow-color);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+.radio-station {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.radio-controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+}
+
+.radio-btn {
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+.radio-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+.radio-btn:active {
+    transform: scale(0.95);
+}
+
+.radio-power {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background: rgba(255, 0, 0, 0.1);
+    border-color: rgba(255, 0, 0, 0.3);
+    color: #ff6b6b;
+}
+
+.radio-power.active {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    animation: radioPulse 2s infinite;
+}
+
+@keyframes radioPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.8); }
+}
+
+.radio-volume {
+    margin-top: 1rem;
+}
+
+.radio-volume label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.radio-volume input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.radio-volume input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--glow-color);
+    transition: all 0.3s ease;
+}
+
+.radio-volume input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+.radio-volume input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px var(--glow-color);
+    transition: all 0.3s ease;
+}
+
+.radio-volume input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+.radio-station-list {
+    margin-top: 1rem;
+    max-height: 120px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.radio-station-item {
+    padding: 0.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.radio-station-item:hover {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--primary-color);
+}
+
+.radio-station-item.active {
+    background: rgba(0, 212, 255, 0.2);
+    color: var(--primary-color);
+    border-left: 3px solid var(--primary-color);
 }
 
 .gas-pedal {
@@ -447,13 +758,16 @@ main {
     justify-content: center;
     transition: all 0.2s ease;
     box-shadow: 
-        0 0 20px rgba(255, 107, 107, 0.3),
-        inset 0 0 20px rgba(255, 107, 107, 0.1);
+        0 10px 30px rgba(255, 107, 107, 0.4),
+        inset 0 0 20px rgba(255, 107, 107, 0.1),
+        0 0 0 10px rgba(255, 107, 107, 0.1);
     text-transform: uppercase;
     letter-spacing: 3px;
     user-select: none;
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
 }
 
 .gas-pedal::before {
@@ -477,12 +791,13 @@ main {
 
 .gas-pedal:active,
 .gas-pedal.active {
-    transform: scale(0.95);
+    transform: translateZ(-20px) scale(0.95) rotateX(10deg);
     box-shadow: 
-        0 0 40px rgba(255, 107, 107, 0.6),
-        inset 0 0 30px rgba(255, 107, 107, 0.3);
+        0 5px 15px rgba(255, 107, 107, 0.8),
+        inset 0 0 40px rgba(255, 107, 107, 0.4),
+        0 0 0 5px rgba(255, 107, 107, 0.2);
     border-color: #ff0000;
-    background: linear-gradient(135deg, rgba(255, 0, 0, 0.5) 0%, rgba(255, 100, 100, 0.4) 100%);
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.6) 0%, rgba(255, 100, 100, 0.5) 100%);
 }
 
 .pedal-text {
@@ -1250,6 +1565,34 @@ footer p {
     
     .simulator-stats {
         grid-template-columns: 1fr;
+    }
+    
+    .controls-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .road-visual-3d {
+        height: 200px;
+    }
+    
+    .radio-panel {
+        padding: 1rem;
+    }
+    
+    .radio-frequency {
+        font-size: 1.5rem;
+    }
+    
+    .radio-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .radio-power {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
     }
     
     .timeline::before {
