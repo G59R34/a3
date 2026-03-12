@@ -955,6 +955,92 @@ main {
     color: var(--text-primary);
 }
 
+/* Gallery Section */
+.gallery-section {
+    padding: 5rem 0;
+}
+
+.gallery-intro {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    font-style: italic;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.video-container {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(0, 212, 255, 0.1);
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.video-title {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+.memorial-video {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    background: #000;
+}
+
+.video-caption {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    font-style: italic;
+}
+
 /* Memories Section */
 .memories-section {
     padding: 5rem 0;
@@ -1126,8 +1212,21 @@ footer p {
     }
     
     .specs-grid,
-    .memories-grid {
+    .memories-grid,
+    .gallery-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .gallery-item {
+        aspect-ratio: 16/9;
+    }
+    
+    .video-container {
+        padding: 1.5rem;
+    }
+    
+    .video-title {
+        font-size: 1.5rem;
     }
     
     .calculator-card {
